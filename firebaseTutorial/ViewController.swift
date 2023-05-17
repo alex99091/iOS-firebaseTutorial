@@ -9,8 +9,8 @@ import UIKit
 import FirebaseDatabase
 
 struct TodoEntity {
-    let todo: String
-    let isDone: Bool
+    var todo: String
+    var isDone: Bool = false
 }
 
 
@@ -39,6 +39,13 @@ class ViewController: UIViewController {
     // MARK: - IB Actions
     @IBAction func addTodoButtonTabbed(_ sender: Any) {
         
+        guard let userInput: String = todoInputTextField.text else { return }
+        let newTodo = TodoEntity(todo: userInput, isDone: false)
+        self.todoList.append(newTodo)
+        // self.todoTableView.reloadData()
+        
+        let newIndexPath = IndexPath(row: self.todoList.count - 1, section: 0)
+        self.todoTableView.insertRows(at: [newIndexPath], with: .fade)
     }
     
 }
