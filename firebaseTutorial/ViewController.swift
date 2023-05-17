@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ViewController: UIViewController {
 
+    var ref: DatabaseReference?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // 뷰를 띄울 때, firebase data reference 가져오기
+        ref = Database.database().reference()
     }
 
 
