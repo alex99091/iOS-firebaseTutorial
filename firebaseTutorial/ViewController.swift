@@ -39,13 +39,31 @@ class ViewController: UIViewController {
     // MARK: - IB Actions
     @IBAction func addTodoButtonTabbed(_ sender: Any) {
         
-        guard let userInput: String = todoInputTextField.text else { return }
+        guard let userInput: String = todoInputTextField.text,
+        userInput.count > 0 else {
+            presentAlert()
+            return
+        }
         let newTodo = TodoEntity(todo: userInput, isDone: false)
         self.todoList.append(newTodo)
         // self.todoTableView.reloadData()
         
         let newIndexPath = IndexPath(row: self.todoList.count - 1, section: 0)
         self.todoTableView.insertRows(at: [newIndexPath], with: .fade)
+        
+        todoInputTextField.text = ""
+    }
+    
+    // 할일이 입력되지 않았을때 알림 띄우기
+    fileprivate func presentAlert() {
+        let alert = UIAlertController(title: "에러 메세지",
+                                      message: "입력칸이 비어있습니다. 할일을 입력해주세요.",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("확인", comment: "에러내용을 확인했습니다."), style: .default, handler: { _ in
+        })
+        
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
