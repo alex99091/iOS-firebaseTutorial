@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         
         // 테이블 뷰 데이터소스 등록
         self.todoTableView.dataSource = self
+        self.todoTableView.delegate = self
         
     }
     
@@ -86,4 +87,33 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoList.count
     }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제", handler: { _,_,_  in
+            print("#fileID, #function, #line, -삭제: \(indexPath)")
+        })
+        
+        let cellConfig = UISwipeActionsConfiguration(actions: [
+            deleteAction
+        ])
+        
+        return cellConfig
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let editAction = UIContextualAction(style: .destructive, title: "수정", handler: { _,_,_  in
+            print("#fileID, #function, #line, -수정: \(indexPath)")
+        })
+        
+        let cellConfig = UISwipeActionsConfiguration(actions: [
+            editAction
+        ])
+        
+        return cellConfig
+    }
+    
 }
