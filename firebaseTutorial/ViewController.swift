@@ -113,6 +113,8 @@ extension ViewController: UITableViewDelegate {
             editAction
         ])
         
+        cellConfig.performsFirstActionWithFullSwipe = false
+        
         return cellConfig
     }
     
